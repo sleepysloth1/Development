@@ -1,0 +1,22 @@
+/*  */
+
+#wrapper {
+    width: 100vw;
+    height: 85px;
+    background-color: green;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#title {
+    color: white;
+    font-size: 40px;
+    margin-left: 20px;
+}
+
+#logo {
+    height: 80%;
+}
