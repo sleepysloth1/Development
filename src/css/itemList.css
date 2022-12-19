@@ -1,0 +1,10 @@
+#itemWrapper {
+   
+    background-color: rgb(197, 193, 171);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}

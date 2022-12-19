@@ -1,18 +1,23 @@
 import Item from "./Item";
+/*i added this line below to import the itemList.css that i made to style
+*/
+import '../css/itemList.css';
 
-export default function ItemList({items}) {
+
+export default function ItemList({ items, handleAddToCart }) {
     return (
         // Items
-        <div>
-            {/* {items.map((item) => (
-                <h2>{item}</h2>
-            ))} */}
+        <div id='itemWrapper'>
+            {items.map((item) => (
+                <Item
+                    photo={item.photo}
+                    price={item.price}
+                    label={item.label}
+                    Nutrition={item.Nutrition}
+                    handleAddToCart={handleAddToCart}
+                />
+            ))}
 
-            <Item
-                photo={'https://www.berlyskitchen.com/wp-content/uploads/2022/07/Pumpkin-Spice-Latte-Featured-Image.jpg'} 
-                price={'$4.99'} 
-                label={'Description'}
-            />
         </div>
     )
 }
