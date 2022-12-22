@@ -3,7 +3,6 @@ import ItemList from "./ItemList";
 import Filter from "./Filter"
 import { useState } from "react";
 
-// change photo input to file path,
 export default function Body() {
     const data = [
         {
@@ -11,11 +10,12 @@ export default function Body() {
             price: 16.99,
             label: 'Strawberry Matcha',
             Nutrition: 20,
+
         },
         {
             photo: 'https://s3.amazonaws.com/toasttab/restaurants/restaurant-38231000000000000/menu/items/2/item-200000007462544492_1589366582.jpg',
             price: 8.99,
-            label:'Black Sesame Latte',
+            label: 'Black Sesame Latte',
             Nutrition: 200,
         },
         {
@@ -84,14 +84,18 @@ export default function Body() {
     const [calType, setCalType] = useState('All')
     const [sortType, setSortType] = useState('All')
     const [cart, setCart] = useState([])
+    const [priceType, setPriceType] = useState('All')
+
 
     function handleAddToCart(item) {
         const tmp = [...cart]
+        // tmp[item] = (tmp[item] || 0) + 1;	
+
         tmp.push(item)
         setCart(tmp)
     }
 
-    // add button to item component
+    // TO-DO: add button to item component
     // call on press
     // create cart componenet
     // pass in cart
@@ -105,8 +109,19 @@ export default function Body() {
             const tmp = data.filter(item => item.Nutrition < 100)
             setItems(tmp)
         }
-
         setCalType(value)
+    }
+    // Price filter. for some reason when sorting is pressed first and then the filtering is applied, 
+    // the filterign ignores the sorting. 
+    function handlePrice(value) {
+        if (value === 'All') {
+            setItems(data)
+        }
+        else {
+            const tmp = data.filter(item => item.price < 7.00)
+            setItems(tmp)
+        }
+        setPriceType(value)
     }
 
     function handleSort(value) {
@@ -116,13 +131,12 @@ export default function Body() {
             const tmp = items.sort((a, b) => a.price - b.price)
             setItems(tmp)
         }
-
         setSortType(value)
+
     }
 
     return (
-        // Filter Section
-        // Item List
+
         <div style={{
             display: 'flex',
             flexDirection: 'row',
@@ -130,8 +144,10 @@ export default function Body() {
             flexWrap: "wrap"
 
         }}>
-            <Filter handleCal={handleCal} calType={calType} sortType={sortType} handleSort={handleSort}/>
-            <ItemList items={items} handleAddToCart={handleAddToCart}/>
+            <Filter handleCal={handleCal} calType={calType} sortType={sortType} handleSort={handleSort} handlePrice={handlePrice} priceType={priceType} />
+            <ItemList items={items} handleAddToCart={handleAddToCart} />
+
+
         </div>
     )
 }
