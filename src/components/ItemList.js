@@ -1,12 +1,9 @@
 import Item from "./Item";
-/*i added this line below to import the itemList.css that i made to style
-*/
-import '../css/itemList.css';
 
+import '../css/itemList.css';
 
 export default function ItemList({ items, handleAddToCart }) {
     return (
-        // Items
         <div id='itemWrapper'>
             {items.map((item) => (
                 <Item

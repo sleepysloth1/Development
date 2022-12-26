@@ -1,7 +1,8 @@
 import Item from "./Item";
 import ItemList from "./ItemList";
 import Filter from "./Filter"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Cart from './Cart'
 
 export default function Body() {
     const data = [
@@ -59,6 +60,7 @@ export default function Body() {
             price: 7.12,
             label: 'Nitro Coffee',
             Nutrition: 0,
+
         },
         {
             photo: 'https://s3.amazonaws.com/toasttab/restaurants/restaurant-38231000000000000/menu/items/3/item-200000010032054603_1668354159.jpg',
@@ -85,44 +87,59 @@ export default function Body() {
     const [sortType, setSortType] = useState('All')
     const [cart, setCart] = useState([])
     const [priceType, setPriceType] = useState('All')
+    const [total, setTotal] = useState(0)
 
-
-    function handleAddToCart(item) {
-        const tmp = [...cart]
-        // tmp[item] = (tmp[item] || 0) + 1;	
-
-        tmp.push(item)
+    function handleAddToCart(label, price) {
+        let newItem = data.filter(item => item.label === label)[0]
+        let tmp = [...cart]
+        let newTotal = total + price
+        console.log(newTotal)
+        tmp.push(newItem)
+        newTotal = newTotal * 100;
+        newTotal = Math.round(newTotal)
+        setTotal(newTotal / 100)
         setCart(tmp)
     }
+    function handleRemoveFromCart(index, price) {
+        let newCart = [...cart];
+        newCart = newCart.filter((item, ind) => {
+            return ind !== index
+        })
+        let newTotal = total - price;
+        newTotal = newTotal * 100;
+        newTotal = Math.round(newTotal)
+        setTotal(newTotal / 100)
 
-    // TO-DO: add button to item component
-    // call on press
-    // create cart componenet
-    // pass in cart
-    // display cart items
-    // calculate price
+        setCart(newCart)
+    }
+    function resetCart() {
+        setCart([])
+        setTotal(0)
+    }
+
 
     function handleCal(value) {
-        if (value === 'All') {
-            setItems(data)
-        } else {
-            const tmp = data.filter(item => item.Nutrition < 100)
-            setItems(tmp)
-        }
+
         setCalType(value)
     }
-    // Price filter. for some reason when sorting is pressed first and then the filtering is applied, 
-    // the filterign ignores the sorting. 
+
     function handlePrice(value) {
-        if (value === 'All') {
-            setItems(data)
-        }
-        else {
-            const tmp = data.filter(item => item.price < 7.00)
-            setItems(tmp)
-        }
+
         setPriceType(value)
     }
+    useEffect(() => {
+        let tmp = [...data]
+        if (calType !== "All") {
+            tmp = tmp.filter(item => item.Nutrition < 100)
+        }
+        if (priceType !== "All") {
+            tmp = tmp.filter(item => item.price < 7.00)
+        }
+        if (sortType !== "All") {
+            tmp = tmp.sort((a, b) => a.price - b.price)
+        }
+        setItems(tmp)
+    }, [calType, priceType, sortType])
 
     function handleSort(value) {
         if (value === 'All') {
@@ -144,9 +161,9 @@ export default function Body() {
             flexWrap: "wrap"
 
         }}>
-            <Filter handleCal={handleCal} calType={calType} sortType={sortType} handleSort={handleSort} handlePrice={handlePrice} priceType={priceType} />
+            <Filter handleCal={handleCal} calType={calType} sortType={sortType} handleSort={handleSort} handlePrice={handlePrice} priceType={priceType} total={total} resetCart={resetCart} />
             <ItemList items={items} handleAddToCart={handleAddToCart} />
-
+            <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart} />
 
         </div>
     )

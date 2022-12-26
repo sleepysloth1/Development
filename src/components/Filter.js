@@ -1,4 +1,4 @@
-export default function Filter({ handleCal, calType, sortType, handleSort, handlePrice, priceType, handleAddtoCart }) {
+export default function Filter({ handleCal, calType, sortType, handleSort, handlePrice, priceType, handleAddtoCart, total,resetCart }) {
     return (
         <div style={{
             width: 200,
@@ -62,21 +62,19 @@ export default function Filter({ handleCal, calType, sortType, handleSort, handl
                     />
                     Price low to high</label>
 
-                {/* <h1>Add to Cart</h1>
-            <label>
-                <input
-                    checked={sortType === 'All'}
-                    type='radio'
-                    onChange={() => handleAddtoCart('All')}
-                />
-                All </label>
-            <label>
-                <input
-                    checked={sortType === '+'}
-                    type='radio'
-                    onChange={() => handleAddtoCart('+')}
-                />
-                Add to cart</label> */}
+                    <h1>Cart Total </h1>
+                    <h1>${total}</h1>
+
+                {
+                <label>
+                    <input
+                    type="button"
+                    onClick={()=>resetCart()}
+                    value="Reset Cart"/>
+
+                </label>
+}
+            
             </div>
         </div>
     )
