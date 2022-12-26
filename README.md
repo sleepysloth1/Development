@@ -4,7 +4,7 @@
  https://sleepysloth1.github.io/Development/
 
 ### Goal and Value of the Application
-The goal of the application is to be able to sort, filter, and add/remove beverages to the cart, and update the carts subtotal according to the price of the beverage. I created two filters: 1)for the All vs. nutrition(calorie) of each drink and 2) All vs. drinks below $7.00. The sorting feature allows you to sort from low to high price.
+The goal of the application is to be able to sort, filter, and add/remove beverages to the cart, and update the carts subtotal according to the price of the beverage. You can also reset the cart to clear any of the drinks that were added. I created two filters: 1)for the All vs. nutrition(calorie) of each drink and 2) All vs. drinks below $7.00. The sorting feature allows you to sort from low to high price.
 
 ### Usability Principles Considered
 I used a clear hierarchy where in that each drink is clearly associated with a corresponding price, calorie, add to cart and remove from cart button. Also, I gave the sorting and filtering panel radio buttons that clearly indicate what is applied in the current moment. Each card of the Beverage indicates all the information regarding its properties including nutrtion, price, name, and a button to add and remove(which is only shown once you add to cart, and shown on a correspong beverage card) the item from the cart and the carts subtotal will update accordingly
